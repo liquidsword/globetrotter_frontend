@@ -1,10 +1,12 @@
 import React from 'react'
+import MyTrips from './MyTrips.js'
 
 const MainContainer = () => {
-  <div className="MainContainer"/>
-      <p>I am the main container of awesomeness!!!</p>
+  return (
+  <div className="MainContainer">
+      <MyTrips/>
   </div>
-
+  )
 }
 
 export default MainContainer

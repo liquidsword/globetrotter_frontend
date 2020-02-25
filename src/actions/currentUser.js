@@ -1,4 +1,7 @@
 //synchronous action creators
+import { resetLoginForm } from './loginForm_action.js'
+import { getMyTrips } from './myTrips.js';
+
 export const setCurrentUser = user => {
   return {
     type: "SET_CURRENT_USER",
@@ -23,6 +26,7 @@ export const login = credentials => {
       headers: {
         "Content-Type": "application/json"
       },
+      body: JSON.stringify(credentials)
     })
         .then(r => r.json())
         .then(user => {
@@ -30,6 +34,8 @@ export const login = credentials => {
             alert(user.error)
           } else {
             dispatch(setCurrentUser(user))
+            dispatch(getMyTrips())
+            dispatch(resetLoginForm())
           }
         })
         .catch(console.log)
@@ -46,7 +52,6 @@ export const logout = () => {
   }
 }
 
-
 export const getCurrentUser = () => {
   console.log("DISPATCHING GET CURRENT USER")
   return dispatch => {
@@ -58,11 +63,12 @@ export const getCurrentUser = () => {
       },
     })
         .then(r => r.json())
-        .then(user => {
-          if (user.error) {
-            alert(user.error)
+        .then(response => {
+          if (response.error) {
+            alert(response.error)
           } else {
-            dispatch(setCurrentUser(user))
+            dispatch(setCurrentUser(response.data))
+            dispatch(getMyTrips())
           }
         })
         .catch(console.log)
