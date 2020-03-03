@@ -6,11 +6,10 @@ import Logout from './Logout.js';
 const NavBar = ({ currentUser }) => {
   return (
     <div className = "NavBar">
-      { currentUser ? <strong> Hi {currentUser.attributes.name}, welcome to Globetrotter.</strong> : ""}
+      { currentUser ? <strong> Hi, welcome to Globetrotter.</strong> : ""}
       <button>Login </button>
       OR
       <button>Sign Up</button>
-      //{ currentUser ? <Logout/> : <Login/> }
     </div>
   )
 }

@@ -5,9 +5,10 @@ import { getCurrentUser } from './actions/currentUser'
 import NavBar from './components/NavBar.js';
 import Login from './components/Login.js';
 import Logout from './components/Logout.js';
+import Signup from './components/Signup.js';
 import MyTrips from './components/MyTrips.js'
 import MainContainer from './components/MainContainer.js'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 class App extends React.Component{
 
@@ -17,16 +18,13 @@ class App extends React.Component{
 
   render () {
     return (
-      <div className = "App">
-        <NavBar />
-        <Router>
-          <>
-          <Route exact path = '/login' component={Login}/>
-          <Route exact path = '/logout' component={Logout}/>
-          <Route exact path = '/my-trips' component={MyTrips}/>
-          </>
-        </Router>
-      </div>
+        <div className = "App">
+          <Logout/>
+          <NavBar/>
+              <Route exact path = '/login' component={Login}/>
+              <Route exact path = '/my-trips' component={MyTrips}/>
+              <Route exact path = '/signup' component={Signup}/>
+          </div>
     );
   }
 }
