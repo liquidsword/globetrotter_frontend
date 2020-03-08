@@ -16,6 +16,6 @@ const mapStateToProps = state => {
   }
 }
 //we provide mapStateToProps to Redux in order to tell Redux:
-//to please provide us access to your state so taht we can pick and choose
+//to please provide us access to your state so that we can pick and choose
 //the pieces of state we would like available to this particular component as props
 export default connect(mapStateToProps)(MyTrips)
