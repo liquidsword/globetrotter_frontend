@@ -1,3 +1,5 @@
+import { resetNewTripForm } from './newTripForm'
+
 //synchronous actions
 
 export const setMyTrips = trips => {
@@ -13,7 +15,13 @@ export const clearTrips = () => {
   }
 }
 
-//async actions
+export const addTrip = trip => {
+  return {
+    type: "ADD_TRIP",
+    trip
+  }
+}
+//async actions: have to wait for something to happen and then update the store
 export const getMyTrips = () => {
     return dispatch => {
       return fetch("http://localhost:3001/api/v1/trips", {
@@ -33,5 +41,39 @@ export const getMyTrips = () => {
             }
           })
           .catch(console.log)
+  }
+}
+
+
+export const createTrip = (tripData, history) => {
+  return dispatch => {
+    const sendableTripData = {
+        start_date: tripData.startDate,
+        end_date: tripData.endDate,
+        name: tripData.name,
+        user_id: tripData.userId
+    }
+    return fetch("http://localhost:3001/api/v1/trips", {
+      credentials: "include",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(sendableTripData)
+    })
+      .then(r => r.json())
+      .then(resp => {
+        if (resp.error) {
+          alert(resp.error)
+        } else {
+          dispatch(addTrip(resp.data))
+          dispatch(resetNewTripForm())
+          history.push(`/trips/${resp.data.id}`)
+        }
+
+        //go somewhere else -> show trip
+        // add the new trip to the store
+      })
+      .catch(console.log)
   }
 }
