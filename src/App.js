@@ -9,9 +9,12 @@ import Signup from './components/Signup.js';
 import MyTrips from './components/MyTrips.js';
 import TripCard from './components/TripCard.js';
 import MainContainer from './components/MainContainer.js'
+import NewTripFormWrapper from './components/NewTripFormWrapper.js'
+import EditTripFormWrapper from './components/EditTripFormWrapper.js'
 import Home from './components/Home.js'
 import NewTripForm from './components/NewTripForm.js'
 import { Route, Switch, Link, withRouter } from 'react-router-dom'
+import { setFormDataForEdit } from './actions/newTripForm.js';
 
 class App extends React.Component {
 
@@ -20,7 +23,7 @@ class App extends React.Component {
   }
 
   render () {
-    const { loggedIn, trips } = this.props
+    const { loggedIn, trips, setFormDataForEdit } = this.props
     return (
         <div className = "App">
           { loggedIn ? <NavBar location={this.props.location}/> : <Home/> }
@@ -28,16 +31,16 @@ class App extends React.Component {
               <Route exact path = '/login' component={Login}/>
               <Route exact path = '/trips' component={MyTrips}/>
               <Route exact path = '/signup' render={({history})=><Signup history={history}/>}/>
-              <Route exact path = '/trips/new' component={NewTripForm}/>
+              <Route exact path = '/trips/new' component={NewTripFormWrapper}/>
               <Route exact path = '/trips/:id' render ={props => {
                 const trip = trips.find(trip => trip.id === props.match.params.id)
                 console.log(trip)
                 return <TripCard trip={trip} {...props}/>
                 }
-              <Route exact path = '/trips/:id/edit' render ={props => {
+              }/>
+              <Route exact path = '/trips/:id/edit' render = {props => {
                 const trip = trips.find(trip => trip.id === props.match.params.id)
-                console.log(trip)
-                return <NewTripForm trip={trip} {...props}/>
+                return <EditTripFormWrapper trip={trip} {...props}/>
                 }
               }/>
           </Switch>
