@@ -5,8 +5,7 @@ import NewTripForm from './NewTripForm.js'
 
 const NewTripFormWrapper = ({ history, createTrip }) => {
 
-  const handleSubmit = (event, name, startDate, endDate, userId, history) => {
-    event.preventDefault()
+  const handleSubmit = (name, startDate, endDate, userId) => {
     createTrip({ startDate, endDate, name, userId }, history)
 
   }

@@ -1,6 +1,6 @@
 import React from 'react';
-import { updateTrip } from '../actions/myTrips';
-import { setFormDataForEdit } from '../actions/newTripForm';
+import { updateTrip, deleteTrip } from '../actions/myTrips';
+import { setFormDataForEdit, resetNewTripForm } from '../actions/newTripForm';
 import { connect } from 'react-redux'
 import NewTripForm from './NewTripForm.js'
 
@@ -11,16 +11,29 @@ class EditTripFormWrapper extends React.component {
     this.props.setFormDataForEdit(this.props.trip)
   }
 
-  handleSubmit = (event, name, startDate, endDate, userId, history) => {
-    const { updateTrip } = this.props
-    event.preventDefault()
-    updateTrip({ startDate, endDate, name, tripID: trip.id, userId }, history)
+  componentDidUpdate(prevProps) {
+    this.props.trip && !prevProps.trip && this.props.setFormDataForEdit(this.props.trip)
+  }
+
+  componentWillUnmount() {
+    this.props.resetNewTripForm
+  }
+
+  handleSubmit = (name, startDate, endDate) => {
+    const { updateTrip, trip, history } = this.props
+    updateTrip({ startDate, endDate, name, tripId: trip.id }, history)
   }
 
   render() {
-    const { history, handleSubmit } = this.props
-    return <NewTripForm editMode history={history} handleSubmit={handleSubmit} />
+    const { history, deleteTrip, trip } = this.props
+    const tripId = trip ? trip.id : null
+    return <>
+              <NewTripForm editMode handleSubmit={this.handleSubmit} />
+              <br/>
+              <button style={{color: "red"}}
+                onClick={() => deleteTrip(tripId, history)}>DELETE THIS TRIP!</button>
+          </>
   }
 }
 
-export default connect(null, { updateTrip, setFormDataForEdit })(EditTripFormWrapper);
+export default connect(null, { updateTrip, setFormDataForEdit, resetNewTripForm, deleteTrip })(EditTripFormWrapper);

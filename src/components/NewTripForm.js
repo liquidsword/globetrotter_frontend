@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 //3. This means Redux gives us back a prop called updateNewTripForm
 //which when invoked Redux will now dispatch
 
-const NewTripForm = ({ name, startDate, endDate, history, updateNewTripForm, userId, trip, handleSubmit, editMode }) => {
+const NewTripForm = ({ name, startDate, endDate, updateNewTripForm, userId, trip, handleSubmit, editMode }) => {
   const handleChange = event => {
     const { name, value } = event.target
     //4. Below is not an invocation of the action creator from the action creator on line 2.
@@ -18,7 +18,7 @@ const NewTripForm = ({ name, startDate, endDate, history, updateNewTripForm, use
     return (
       <form onSubmit={ event => {
         event.preventDefault()
-        handleSubmit(name, startDate, endDate, userId, history)
+        handleSubmit(name, startDate, endDate)
       }}>
         <input
           placeholder= "name"
