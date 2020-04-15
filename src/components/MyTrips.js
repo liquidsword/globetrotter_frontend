@@ -5,11 +5,9 @@ import { Link } from 'react-router-dom';
 
 const MyTrips = props => {
   const tripCards = props.trips.length > 0 ?
-  props.trips.map(t => (<><Link key={t.id} to={`/trips/${t.id}`}> {t.attributes.name}</Link><br/></>)) : null
+    props.trips.map(t => (<p key={t.id}><Link to={`/trips/${t.id}`}>{t.attributes.name}</Link></p>)) : null
 
-  return (
-    tripCards
-  )
+  return tripCards
 }
 
 const mapStateToProps = state => {

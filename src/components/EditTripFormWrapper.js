@@ -4,7 +4,7 @@ import { setFormDataForEdit, resetNewTripForm } from '../actions/newTripForm';
 import { connect } from 'react-redux'
 import NewTripForm from './NewTripForm.js'
 
-class EditTripFormWrapper extends React.component {
+class EditTripFormWrapper extends React.Component {
   //({ history, updateTrip }) =>
 
   componentDidMount(){
@@ -16,12 +16,12 @@ class EditTripFormWrapper extends React.component {
   }
 
   componentWillUnmount() {
-    this.props.resetNewTripForm
+    this.props.resetNewTripForm()
   }
 
-  handleSubmit = (name, startDate, endDate) => {
+  handleSubmit = (name, startDate, endDate, userId) => {
     const { updateTrip, trip, history } = this.props
-    updateTrip({ startDate, endDate, name, tripId: trip.id }, history)
+    updateTrip({ startDate, endDate, name, tripId: trip.id, userId }, history)
   }
 
   render() {

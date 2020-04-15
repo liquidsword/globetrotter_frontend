@@ -51,7 +51,7 @@ export const getMyTrips = () => {
               alert(response.error)
             } else {
               console.log(response.data)
-              dispatch(setMyTrips([response.data]))
+              dispatch(setMyTrips(response.data))
             }
           })
           .catch(console.log)
@@ -124,8 +124,8 @@ export const updateTrip = (tripData, history) => {
 }
 
 export const deleteTrip = (tripId, history) => {
-return dispatch => {
-  return fetch(`http://localhost:3001/api/v1/trips/${tripData.tripId}`, {
+  return dispatch => {
+    return fetch(`http://localhost:3001/api/v1/trips/${tripId}`, {
     credentials: "include",
     method: "DELETE",
     headers: {

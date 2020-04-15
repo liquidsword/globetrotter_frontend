@@ -2,6 +2,7 @@ import React from 'react';
 //1. first we take the action creator
 import { createTrip } from '../actions/myTrips.js'
 import { connect } from 'react-redux'
+import { updateNewTripForm } from '../actions/newTripForm'
 
 //3. This means Redux gives us back a prop called updateNewTripForm
 //which when invoked Redux will now dispatch
@@ -40,7 +41,7 @@ const NewTripForm = ({ name, startDate, endDate, updateNewTripForm, userId, trip
         /><br/>
         <input
           type="submit"
-          value={editMode ? "Update Trip" : "Create Trip" }/>
+          value={ editMode ? "Update Trip" : "Create Trip" }/>
       </form>
     )};
 
